@@ -125,7 +125,7 @@ describe ThinkingSphinx::FacetSearch do
 
     describe "non-empty result set" do
       before :each do
-        @person = Person.find(:first)
+        @person = Person.first
         @people = [@person]
         search.stub!(:empty? => false)
         search.stub!(:each_with_match).
@@ -153,7 +153,7 @@ describe ThinkingSphinx::FacetSearch do
   
   describe "#for" do
     before do
-      @person = Person.find(:first)
+      @person = Person.first
       @people = [@person]
       search.stub!(:each_with_match).
         and_yield(@person, {:attributes => {'@groupby' => @person.city.to_crc32, '@count' => 1}})

@@ -5,7 +5,7 @@ describe 'ThinkingSphinx::ActiveRecord::HasManyAssociation' do
     before :each do
       Friendship.stub!(:search => true)
       
-      @person = Person.find(:first)
+      @person = Person.first
       @index  = Friendship.sphinx_indexes.first
     end
     
@@ -45,7 +45,7 @@ describe 'ThinkingSphinx::ActiveRecord::HasManyAssociation' do
     before :each do
       Friendship.stub!(:facets => true)
 
-      @person = Person.find(:first)
+      @person = Person.first
       @index  = Friendship.sphinx_indexes.first
     end
 
@@ -85,7 +85,7 @@ describe 'ThinkingSphinx::ActiveRecord::HasManyAssociation' do
     before :each do
       Person.stub!(:search => true)
       
-      @person = Person.find(:first)
+      @person = Person.first
       @index  = Person.sphinx_indexes.first
     end
     
@@ -119,7 +119,7 @@ describe 'ThinkingSphinx::ActiveRecord::HasManyAssociation' do
     before :each do
       Person.stub!(:facets => true)
 
-      @person = Person.find(:first)
+      @person = Person.first
       @index  = Person.sphinx_indexes.first
     end
 
@@ -153,7 +153,7 @@ describe 'ThinkingSphinx::ActiveRecord::HasManyAssociation' do
     before :each do
       Friendship.stub!(:search => Friendship)
       
-      @person = Person.find(:first)
+      @person = Person.first
     end
     
     it "should add a filter for the attribute in a sphinx scope call" do

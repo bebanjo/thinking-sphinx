@@ -269,7 +269,7 @@ describe ThinkingSphinx::ActiveRecord do
       )
       @client = Riddle::Client.new
       @client.stub!(:update => true)
-      @person = Person.find(:first)
+      @person = Person.first
 
       @configuration.stub!(:client => @client)
       Person.sphinx_indexes.each { |index| index.stub!(:delta? => false) }
@@ -376,7 +376,7 @@ describe ThinkingSphinx::ActiveRecord do
     end
 
     it "should return values with the expected offset" do
-      person      = Person.find(:first)
+      person      = Person.first
       model_count = ThinkingSphinx.context.indexed_models.length
       Person.stub!(:sphinx_offset => 3)
 
@@ -386,7 +386,7 @@ describe ThinkingSphinx::ActiveRecord do
 
   describe '#primary_key_for_sphinx' do
     before :each do
-      @person = Person.find(:first)
+      @person = Person.first
     end
 
     after :each do

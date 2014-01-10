@@ -15,13 +15,13 @@ post = Post.find(1)
   Tagging.create :taggable => post, :tag => Tag.create(:text => text)
 end
 
-Developer.find(:all).each do |developer|
+Developer.all.each do |developer|
   [:country, :city, :state].each do |column|
     Tagging.create(
       :taggable => developer,
-      :tag => Tag.find_or_create_by_text(developer.send(column))
+      :tag => Tag.find_or_create_by(:text => developer.send(column))
     )
   end
 end
 
-Tagging.create(:taggable => Developer.find(:all).last)
+Tagging.create(:taggable => Developer.all.last)

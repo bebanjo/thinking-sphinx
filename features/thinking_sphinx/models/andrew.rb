@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/person"
 
 class Andrew < ActiveRecord::Base
-  set_table_name 'people'
+  self.table_name = 'people'
   
   define_index do
     indexes first_name, last_name, street_address

@@ -1,5 +1,5 @@
 class Music < Medium
-  set_table_name 'music'
+  self.table_name = 'music'
   
   define_index do
     indexes artist, :with => :attribute

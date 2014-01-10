@@ -288,7 +288,7 @@ describe ThinkingSphinx::Facet do
       end
     
       it "should return association values" do
-        person      = Person.find(:first)
+        person      = Person.first
         friendship  = Friendship.new(:person => person)
       
         @facet.value(friendship, {'first_name_facet' => 1}).should == person.first_name
@@ -301,7 +301,7 @@ describe ThinkingSphinx::Facet do
       end
       
       it "should return multi-level association values" do
-        person      = Person.find(:first)
+        person      = Person.first
         tag         = person.tags.build(:name => 'buried')
         friendship  = Friendship.new(:person => person)
         
@@ -313,7 +313,7 @@ describe ThinkingSphinx::Facet do
       end
       
       it "should not error with multi-level association values containing a nil value" do
-        person      = Person.find(:first)
+        person      = Person.first
         tag         = person.tags.build(:name => nil)
         tag         = person.tags.build(:name => "buried")
         friendship  = Friendship.new(:person => person)

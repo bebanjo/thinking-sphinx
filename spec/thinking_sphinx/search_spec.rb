@@ -1450,6 +1450,6 @@ end
 
 describe ThinkingSphinx::Search, "playing nice with Search model" do
   it "should not conflict with models called Search" do
-    lambda { Search.find(:all) }.should_not raise_error
+    lambda { Search.all.to_a }.should_not raise_error
   end
 end

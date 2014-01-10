@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ThinkingSphinx::Excerpter do
   before :each do
-    @alpha      = Alpha.find(:first)
+    @alpha      = Alpha.first
     @search     = mock 'search', :excerpt_for => 'excerpted value'
     @excerpter  = ThinkingSphinx::Excerpter.new(@search, @alpha)
   end

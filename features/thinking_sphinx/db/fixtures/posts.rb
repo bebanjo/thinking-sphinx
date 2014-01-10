@@ -6,5 +6,5 @@ post = Post.create(
   :keywords_file => (File.dirname(__FILE__) + '/post_keywords.txt')
 )
 
-post.authors << Author.find(:first)
+post.authors << Author.first
 post.save

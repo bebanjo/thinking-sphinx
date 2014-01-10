@@ -124,9 +124,8 @@ module ThinkingSphinx
     def self.depolymorphic_reflection(reflection, source_class, poly_class)
       name = "#{reflection.name}_#{poly_class.name}".to_sym
       
-      source_class.reflections[name] ||=
-        ::ActiveRecord::Reflection::AssociationReflection.new(
-          reflection.macro, name, casted_options(poly_class, reflection),
+      source_class.reflections[name] ||= ::ActiveRecord::Reflection::AssociationReflection.new(
+          reflection.macro, name, reflection.scope, casted_options(poly_class, reflection),
           reflection.active_record
         )
     end
