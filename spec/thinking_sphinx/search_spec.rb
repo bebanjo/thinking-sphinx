@@ -258,73 +258,46 @@ describe ThinkingSphinx::Search do
 
       ThinkingSphinx::Search.new(:classes => [Alpha, Beta]).first
     end
-
+  end
+  describe "include_for_class" do
     it "should restrict includes to the relevant classes" do
-      Alpha.should_receive(:find) do |type, options|
-        options[:include].should == [:betas]
-        [@alpha_a, @alpha_b]
-      end
+      search = ThinkingSphinx::Search.new(:include => [:betas, :gammas])
 
-      Beta.should_receive(:find) do |type, options|
-        options[:include].should == [:gammas]
-        [@beta_a, @beta_b]
-      end
-
-      ThinkingSphinx::Search.new(:include => [:betas, :gammas]).first
+      search.send(:include_for_class, Alpha).should == [:betas]
+      search.send(:include_for_class, Beta).should == [:gammas]
     end
 
     it "should restrict single includes to the relevant classes" do
-      Alpha.should_receive(:find) do |type, options|
-        options[:include].should == :betas
-        [@alpha_a, @alpha_b]
-      end
+      search = ThinkingSphinx::Search.new(:include => :betas)
 
-      Beta.should_receive(:find) do |type, options|
-        options[:include].should be_nil
-        [@beta_a, @beta_b]
-      end
-
-      ThinkingSphinx::Search.new(:include => :betas).first
+      search.send(:include_for_class, Alpha).should == :betas
+      search.send(:include_for_class, Beta).should be_nil
     end
 
     it "should respect complex includes" do
-      Alpha.should_receive(:find) do |type, options|
-        options[:include].should == [:thetas, {:betas => :gammas}]
-        [@alpha_a, @alpha_b]
-      end
+      search = ThinkingSphinx::Search.new(:include => [:thetas, {:betas => :gammas}])
 
-      Beta.should_receive(:find) do |type, options|
-        options[:include].should be_nil
-        [@beta_a, @beta_b]
-      end
-
-      ThinkingSphinx::Search.new(:include => [:thetas, {:betas => :gammas}]).first
+      search.send(:include_for_class, Alpha).should == [:thetas, {:betas => :gammas}]
+      search.send(:include_for_class, Beta).should be_nil
     end
 
     it "should respect hash includes" do
-      Alpha.should_receive(:find) do |type, options|
-        options[:include].should == {:betas => :gammas}
-        [@alpha_a, @alpha_b]
-      end
+      search = ThinkingSphinx::Search.new(:include => {:betas => :gammas})
 
-      Beta.should_receive(:find) do |type, options|
-        options[:include].should be_nil
-        [@beta_a, @beta_b]
-      end
-
-      ThinkingSphinx::Search.new(:include => {:betas => :gammas}).first
+      search.send(:include_for_class, Alpha).should == {:betas => :gammas}
+      search.send(:include_for_class, Beta).should be_nil
     end
 
     it "should respect includes for single class searches" do
-      Alpha.should_receive(:find) do |type, options|
-        options[:include].should == {:betas => :gammas}
-        [@alpha_a, @alpha_b]
-      end
-
-      ThinkingSphinx::Search.new(
+      search = ThinkingSphinx::Search.new(
         :include => {:betas => :gammas},
         :classes => [Alpha]
-      ).first
+      )
+
+      search.send(:include_for_class, Alpha).should == {:betas => :gammas}
+      search.should_not_receive(:include_for_class).with(Beta)
+
+      search.first
     end
 
     describe 'query' do
