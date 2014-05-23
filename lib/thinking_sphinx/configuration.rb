@@ -359,17 +359,17 @@ module ThinkingSphinx
     end
 
     def initial_model_directories
-      directories = ["#{app_root}/app/models/"] +
+      directories = ["#{app_root}/app/models"] +
         Dir.glob("#{app_root}/vendor/plugins/*/app/models/")
 
       if defined?(Rails) && Rails.application
         directories += Rails.application.paths['app/models'].to_a
         directories += Rails.application.railties.collect { |railtie|
           railtie.paths['app/models'].to_a if railtie.respond_to?(:paths) # Only engines
-	      }.flatten
+	      }.compact.flatten
       end
 
-      directories
+      directories.uniq
     end
   end
 end
