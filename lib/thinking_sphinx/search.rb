@@ -926,7 +926,7 @@ module ThinkingSphinx
         relation = relation.joins(options[:joins])
         relation = relation.includes(include_for_class(klass))
         relation = relation.where(klass.primary_key_for_sphinx.to_sym => ids)
-        relation = relation.select(options[:select] || index_options[:select])
+        relation = relation.select(options[:select] || index_options[:select]) if options[:select] || index_options[:select]
         relation = relation.order(options[:sql_order] || index_options[:sql_order])
         relation.load
       else
