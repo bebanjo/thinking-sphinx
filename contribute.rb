@@ -269,7 +269,9 @@ module ContributeHelper
     def name; "#{super} gem" end
 
     def check
-      ::Gem.available? self.gem_name
+      ::Gem::Specification.find_by_name(self.gem_name)
+    rescue ::Gem::LoadError
+      false
     end
   end
 
